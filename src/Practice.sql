@@ -60,7 +60,7 @@ select s.name,c.full_name, avg(c.balance) as avg_balance, sum(c.balance) as sum_
 select c.full_name, p.name, f.description from feedbacks f join products p on f.product_id=p.id join clients c on f.client_id=c.id;
 
 --21 Суроо: Белгилүү бир категориядагы бардык продукталарды сатып алган кардарларды чыгарыңыз.
-select  from product_client pc join products p on pc.product_id=p.id join clients c on pc.client_id=c.id join categories ct on p.category_id=ct.id;
+select c,p2 from clients c join feedbacks f on c.id = f.client_id join products p2 on f.product_id = p2.id join categories c2 on p2.category_id = c2.id where c2.name = 'car' ;
 
 --22 Суроо: Дүкөндөрдүн аталыштарын жана ар бир дүкөндөн сатып алган кардарлардын орточо балансын алыңыз.
 
