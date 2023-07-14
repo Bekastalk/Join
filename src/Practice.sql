@@ -1,4 +1,3 @@
-
 --1 Суроо: Бардык продукталарды аларга тиешелүү дүкөн маалыматы менен бирге алыңыз.
 select * from products p join stores s on p.store_id=s.id;
 
@@ -63,20 +62,28 @@ select c.full_name, p.name, f.description from feedbacks f join products p on f.
 select c,p2 from clients c join feedbacks f on c.id = f.client_id join products p2 on f.product_id = p2.id join categories c2 on p2.category_id = c2.id where c2.name = 'car' ;
 
 --22 Суроо: Дүкөндөрдүн аталыштарын жана ар бир дүкөндөн сатып алган кардарлардын орточо балансын алыңыз.
+select s.name, avg(p.price) from product_client pc full join clients c on pc.client_id=c.id full join products p on pc.product_id=p.id join stores s on p.store_id=s.id group by p.store_id, s.name;
 
 --23 Суроо: Белгилүү бир баадагы продукталарды сатып алган кардарларды чыгарыңыз.
+select p.name,p.price, c.full_name  from product_client pc  join clients c on pc.client_id=c.id  join products p on pc.product_id=p.id join stores s on p.store_id=s.id where p.id=6 ;
 
 --24 Суроо: Продукцияларды жана аларга тиешелүү комментарийлердин сүрөттөрүн алыңыз.
+select p.name, f.image, f.description from feedbacks f join products p on f.product_id=p.id;
 
 --25 Суроо: Бир нече продуктыларды сатып алган кардарларды чыгарыңыз.
+select  c.full_name,c.id as client_id,count(pc.client_id) as sum_product from product_client pc join products p on pc.product_id=p.id join clients c on pc.client_id=c.id group by c.full_name, c.id having count(pc.client_id)>1 ;
 
 --26 Суроо: Продукт аталыштарын жана алардын орточо комментарийлерин рейтингдерин алыңыз.
+select p.name, count(f.product_id) from feedbacks f full join products p on f.product_id=p.id group by p.name;
 
 --27 Суроо: Эң кымбат товарды сатып алган кардарларды чыгарыңыз.
+select  c.full_name,p.price from product_client pc join products p on pc.product_id=p.id join clients c on pc.client_id=c.id  order by p.price desc limit 2;
 
 --28 Суроо: Ар бир продукт үчүн продукт аталыштарын жана комментарийлердин жалпы санын алыңыз.
+select p.name,count(product_id) as count_feedbacks from feedbacks f join products p on f.product_id=p.id group by p.name;
 
 --29 Суроо: Белгилүү бир дүкөндөн продуктыларды сатып алган кардарларды чыгарып алыңыз.
+select c.full_name,s.name from product_client pc join products p on pc.product_id=p.id join clients c on pc.client_id=c.id join stores s on p.store_id=s.id where s.id=7;
 
 --30 Суроо: Комментарийлери жок продукталарды алыңыз.
-
+select p.name from products p left join feedbacks f on p.id = f.product_id where f.id is null;
